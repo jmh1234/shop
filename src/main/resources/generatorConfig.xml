@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="shop" targetRuntime="MyBatis3">
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/shop?characterEncoding=utf-8&amp;serverTimezone=UTC&amp;useSSL=false&amp;allowPublicKeyRetrieval=true"
+                        userId="root"
+                        password="fnst-3d3k">
+            <property name="serverTimezone" value="UTC"/>
+            <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="com.example.shop.entity" targetProject="src/main/java"/>
+        <sqlMapGenerator targetPackage="db.mybatis" targetProject="src/main/resources"/>
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.shop.dao" targetProject="src/main/java"/>
+
+        <table schema="shop" tableName="USER" domainObjectName="User">
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="ID" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="AVATAR_URL" property="avatarUrl"/>
+            <columnOverride column="CREATED_AT" jdbcType="createdAt"/>
+            <columnOverride column="UPDATE_AT" jdbcType="updateAt"/>
+        </table>
+    </context>
+</generatorConfiguration>
