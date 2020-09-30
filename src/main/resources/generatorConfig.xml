@@ -21,8 +21,8 @@
             <property name="useActualColumnNames" value="false"/>
             <generatedKey column="ID" sqlStatement="MySql" identity="true"/>
             <columnOverride column="AVATAR_URL" property="avatarUrl"/>
-            <columnOverride column="CREATED_AT" jdbcType="createdAt"/>
-            <columnOverride column="UPDATE_AT" jdbcType="updateAt"/>
+            <columnOverride column="CREATED_AT" property="createdAt"/>
+            <columnOverride column="UPDATE_AT" property="updateAt"/>
         </table>
     </context>
 </generatorConfiguration>
