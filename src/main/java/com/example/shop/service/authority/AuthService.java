@@ -1,4 +1,4 @@
-package com.example.shop.service.Impl;
+package com.example.shop.service.authority;
 
 import com.example.shop.entity.User;
 import com.example.shop.service.SmsCodeService;

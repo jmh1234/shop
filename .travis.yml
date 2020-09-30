@@ -1,0 +1,19 @@
+language: java
+cache:
+  directories:
+    - $HOME/.m2
+jdk:
+  - openjdk8
+script: echo "Running verification"
+jobs:
+  include:
+    - stage: Verify whitelist
+      install: skip
+      script:
+        - docker run -d -p 3306:3306 --name=mysql -e MYSQL_ROOT_PASSWORD=fnst-3d3k -e MYSQL_DATABASE=shop mysql
+        - docker run -d -p 6379:6379 --name=redis redis
+        - sleep 20
+        - mvn flyway:migrate
+        - mvn verify
+        - docker rm -f mysql
+        - docker rm -f redis

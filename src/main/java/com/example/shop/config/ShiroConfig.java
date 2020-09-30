@@ -1,12 +1,15 @@
 package com.example.shop.config;
 
-import com.example.shop.service.Impl.ShiroRealm;
-import com.example.shop.service.Impl.VerificationCodeCheckService;
+import com.example.shop.service.authority.ShiroRealmService;
+import com.example.shop.service.authority.VerificationCodeCheckService;
 import org.apache.shiro.cache.MemoryConstrainedCacheManager;
+import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.DefaultSessionManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -28,16 +31,27 @@ public class ShiroConfig {
     }
 
     @Bean
-    public SecurityManager securityManager(ShiroRealm shiroRealm) {
+    public SecurityManager securityManager(ShiroRealmService shiroRealmService) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(shiroRealm);
+        securityManager.setRealm(shiroRealmService);
         securityManager.setCacheManager(new MemoryConstrainedCacheManager());
         securityManager.setSessionManager(new DefaultSessionManager());
         return securityManager;
     }
 
     @Bean
-    public ShiroRealm myShiroRealm(VerificationCodeCheckService verificationCodeCheckService) {
-        return new ShiroRealm(verificationCodeCheckService);
+    public ShiroRealmService myShiroRealm(VerificationCodeCheckService verificationCodeCheckService) {
+        return new ShiroRealmService(verificationCodeCheckService);
+    }
+
+    @Bean
+    public CookieRememberMeManager cookieRememberMeManager() {
+        CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+        SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
+        //设置RememberMe的cookie有效期为7天
+        simpleCookie.setMaxAge(604800);
+        cookieRememberMeManager.setCookie(simpleCookie);
+        cookieRememberMeManager.setCipherKey(Base64.decode("6ZmI6I2j5Y+R5aSn5ZOlAA=="));
+        return cookieRememberMeManager;
     }
 }

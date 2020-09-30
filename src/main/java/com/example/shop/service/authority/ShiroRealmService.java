@@ -1,4 +1,4 @@
-package com.example.shop.service.Impl;
+package com.example.shop.service.authority;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ShiroRealm extends AuthorizingRealm {
+public class ShiroRealmService extends AuthorizingRealm {
     private final VerificationCodeCheckService verificationCodeCheckService;
 
     @Autowired
-    public ShiroRealm(VerificationCodeCheckService verificationCodeCheckService) {
+    public ShiroRealmService(VerificationCodeCheckService verificationCodeCheckService) {
         this.verificationCodeCheckService = verificationCodeCheckService;
         this.setCredentialsMatcher((token, info) -> new String((char[]) token.getCredentials()).equals(info.getCredentials()));
     }

@@ -1,4 +1,4 @@
-package com.example.shop.service.Impl;
+package com.example.shop.service.authority;
 
 import com.example.shop.dao.UserMapper;
 import com.example.shop.entity.User;
@@ -16,7 +16,7 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public User createUserIfNotExist(String tel) {
+    User createUserIfNotExist(String tel) {
         User user = new User();
         user.setTel(tel);
         try {

@@ -1,4 +1,4 @@
-package com.example.shop.service.Impl;
+package com.example.shop.service.authority;
 
 import org.springframework.stereotype.Service;
 
@@ -8,11 +8,11 @@ import java.util.concurrent.ConcurrentHashMap;
 public class VerificationCodeCheckService {
     private ConcurrentHashMap<String, String> correctTelCodeMap = new ConcurrentHashMap<>();
 
-    public void addCode(String tel, String correctCode) {
+    void addCode(String tel, String correctCode) {
         correctTelCodeMap.put(tel, correctCode);
     }
 
-    public String getCorrectTelCode(String tel) {
+    String getCorrectTelCode(String tel) {
         return correctTelCodeMap.get(tel);
     }
 }

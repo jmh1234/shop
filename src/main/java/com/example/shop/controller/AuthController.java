@@ -1,9 +1,11 @@
 package com.example.shop.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.shop.service.Impl.AuthService;
+import com.example.shop.service.authority.AuthService;
+import com.example.shop.utils.LoggerUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final AuthService authService;
+    private Logger logger = LoggerUtil.getInstance(AuthController.class);
 
     @Autowired
     public AuthController(AuthService authService) {
@@ -33,5 +36,6 @@ public class AuthController {
         );
         token.setRememberMe(true);
         SecurityUtils.getSubject().login(token);
+        logger.info("登陆成功！" + token.getUsername());
     }
 }
