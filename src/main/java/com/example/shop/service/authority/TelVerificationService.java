@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 @Service
 public class TelVerificationService {
-    private static Pattern TEL_PATTERN = Pattern.compile("1\\d{10}");
+    private static final Pattern TEL_PATTERN = Pattern.compile("1\\d{10}");
 
     public boolean verifyTelParameter(JSONObject jsonObject) {
         return jsonObject != null && jsonObject.getString("tel") != null

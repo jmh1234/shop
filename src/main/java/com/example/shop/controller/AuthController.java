@@ -22,7 +22,7 @@ public class AuthController {
 
     private final AuthService authService;
     private final TelVerificationService telVerificationService;
-    private Logger logger = LoggerUtil.getInstance(AuthController.class);
+    private final Logger logger = LoggerUtil.getInstance(AuthController.class);
 
     @Autowired
     public AuthController(AuthService authService, TelVerificationService telVerificationService) {

@@ -1,6 +1,5 @@
 package com.example.shop.service.authority;
 
-import com.example.shop.entity.User;
 import com.example.shop.service.SmsCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +18,7 @@ public class AuthService {
     }
 
     public void sendVerificationCode(String tel) {
-        User user = userService.createUserIfNotExist(tel);
-        if (user != null){
-            System.out.println(user.toString());
-        }
+        userService.createUserIfNotExist(tel);
         String correctCode = smsCodeService.senSmsCode(tel);
         verificationCodeCheckService.addCode(tel, correctCode);
     }

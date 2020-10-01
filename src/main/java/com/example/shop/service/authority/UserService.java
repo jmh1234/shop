@@ -1,8 +1,8 @@
 package com.example.shop.service.authority;
 
-import com.example.shop.dao.UserMapper;
-import com.example.shop.entity.User;
-import com.example.shop.entity.UserExample;
+import com.example.shop.generate.User;
+import com.example.shop.generate.UserExample;
+import com.example.shop.generate.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
