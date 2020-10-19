@@ -139,6 +139,9 @@
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>3.1.12</version>
+                <configuration>
+                    <excludeFilterFile>ignore.xml</excludeFilterFile>
+                </configuration>
                 <dependencies>
                     <dependency>
                         <groupId>com.github.spotbugs</groupId>
@@ -164,6 +167,7 @@
                     <configLocation>${basedir}/checkstyle.xml</configLocation>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
                     <enableRulesSummary>false</enableRulesSummary>
+                    <excludes>**/generate/**/*</excludes>
                 </configuration>
                 <executions>
                     <execution>
@@ -190,7 +194,7 @@
                 <configuration>
                     <user>root</user>
                     <password>fnst-3d3k</password>
-                    <url>jdbc:mysql://localhost:3306/shop?characterEncoding=utf-8&amp;serverTimezone=UTC&amp;useSSL=false&amp;allowPublicKeyRetrieval=true</url>
+                    <url>jdbc:mysql://127.0.0.1:3306/shop?characterEncoding=utf-8&amp;serverTimezone=UTC&amp;useSSL=false&amp;allowPublicKeyRetrieval=true</url>
                 </configuration>
             </plugin>
             <plugin>
@@ -261,6 +265,9 @@
                                     </limits>
                                 </rule>
                             </rules>
+                            <excludes>
+                                <exclude>**/generate/**/*</exclude>
+                            </excludes>
                         </configuration>
                     </execution>
                 </executions>

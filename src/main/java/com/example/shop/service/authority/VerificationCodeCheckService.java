@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class VerificationCodeCheckService {
-    private ConcurrentHashMap<String, String> correctTelCodeMap = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, String> correctTelCodeMap = new ConcurrentHashMap<>();
 
     void addCode(String tel, String correctCode) {
         correctTelCodeMap.put(tel, correctCode);

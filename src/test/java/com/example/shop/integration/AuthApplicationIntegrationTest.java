@@ -29,19 +29,40 @@ public class AuthApplicationIntegrationTest {
     private Environment environment;
 
     @Test
-    public void userTest() throws Exception {
+    public void code1Test() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("tel", "11111111111");
+        jsonObject.put("code", "0000");
+        executePostRequest(environment, jsonObject, "/api/code");
+    }
+
+    @Test
+    public void codeTest() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("tel", "11111111111");
+        jsonObject.put("code", "0000");
+        executePostRequest(environment, jsonObject, "/api/code");
+    }
+
+    @Test
+    public void loginTest() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("tel", "11111111111");
+        jsonObject.put("code", "0000");
+        executePostRequest(environment, jsonObject, "/api/code");
+        executePostRequest(environment, jsonObject, "/api/login");
+    }
+
+    private static void executePostRequest(Environment environment, JSONObject jsonObject, String interfaceName) {
         String url = "http://localhost:" + environment.getProperty("local.server.port");
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("tel", "11111111111");
-
-            HttpPost httpPost = new HttpPost(url + "/api/code");
-            httpPost.addHeader(HTTP.CONTENT_TYPE, "application/json");
-            StringEntity se = new StringEntity(JSON.toJSONString(jsonObject));
-            se.setContentType("text/json");
-            se.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-            httpPost.setEntity(se);
-            httpclient.execute(httpPost, (ResponseHandler<String>) httpResponse -> {
+            HttpPost httpPost1 = new HttpPost(url + interfaceName);
+            httpPost1.addHeader(HTTP.CONTENT_TYPE, "application/json");
+            StringEntity se1 = new StringEntity(JSON.toJSONString(jsonObject));
+            se1.setContentType("text/json");
+            se1.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+            httpPost1.setEntity(se1);
+            httpclient.execute(httpPost1, (ResponseHandler<String>) httpResponse -> {
                 Assertions.assertEquals(200, httpResponse.getStatusLine().getStatusCode());
                 return null;
             });
