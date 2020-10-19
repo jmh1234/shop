@@ -22,7 +22,7 @@ import javax.annotation.Resource;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = ShopApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(locations = "classpath:application.properties")
+@TestPropertySource(locations = "classpath:application.yml")
 public class AuthApplicationIntegrationTest {
 
     @Resource
