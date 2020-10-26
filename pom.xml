@@ -111,6 +111,11 @@
             <version>4.5.7</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.8</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -124,7 +129,6 @@
                     </excludes>
                 </configuration>
             </plugin><!--单元测试 -->
-
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.22.0</version>
@@ -134,7 +138,6 @@
                     </includes>
                 </configuration>
             </plugin><!--集成测试 -->
-
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
@@ -158,8 +161,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-
+            </plugin><!--spotbugs-->
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>3.1.1</version>
@@ -186,7 +188,6 @@
                     </dependency>
                 </dependencies>
             </plugin><!--CI检查-->
-
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
@@ -196,7 +197,7 @@
                     <password>fnst-3d3k</password>
                     <url>jdbc:mysql://127.0.0.1:3306/shop?characterEncoding=utf-8&amp;serverTimezone=UTC&amp;useSSL=false&amp;allowPublicKeyRetrieval=true</url>
                 </configuration>
-            </plugin>
+            </plugin><!--flywaydb-->
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
@@ -209,7 +210,6 @@
                     </dependency>
                 </dependencies>
             </plugin><!--dao层自动生成-->
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -260,17 +260,19 @@
                                         <limit>
                                             <counter>COMPLEXITY</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.20</minimum>
+                                            <minimum>0.90</minimum>
                                         </limit>
                                     </limits>
                                 </rule>
                             </rules>
-                            <excludes>
-                                <exclude>**/generate/**/*</exclude>
-                            </excludes>
                         </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <excludes>
+                        <exclude>**/generate/**/*</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
         </plugins>
     </build>

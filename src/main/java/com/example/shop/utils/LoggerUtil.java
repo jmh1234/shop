@@ -1,11 +1,11 @@
 package com.example.shop.utils;
 
+import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
 
 public class LoggerUtil {
     private static volatile Logger logger = null;
@@ -28,16 +28,12 @@ public class LoggerUtil {
      * 异常处理，使日志里能完整的打印出错误信息
      *
      * @param e 异常信息
-     * @return String
+     * @return 字符串类型的异常信息
      */
+    @SneakyThrows
     public static String formatException(Throwable e) {
-        try {
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            e.printStackTrace(new PrintStream(bos, true, "UTF-8"));
-            return bos.toString("UTF-8");
-        } catch (UnsupportedEncodingException e1) {
-            e1.printStackTrace();
-            return null;
-        }
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        e.printStackTrace(new PrintStream(bos, true, "UTF-8"));
+        return bos.toString("UTF-8");
     }
 }
