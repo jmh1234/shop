@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -24,6 +25,8 @@ public class UserService {
     void createUserIfNotExist(String tel) {
         User user = new User();
         user.setTel(tel);
+        user.setCreatedAt(new Date());
+        user.setUpdatedAt(new Date());
         try {
             userMapper.insert(user);
         } catch (Exception e) {

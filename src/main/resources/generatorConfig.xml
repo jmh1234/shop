@@ -5,6 +5,9 @@
 
 <generatorConfiguration>
     <context id="shop" targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
+        <plugin type="com.qiukeke.mybatis.plugins.MySQLLimitPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
                         connectionURL="jdbc:mysql://localhost:3306/shop?characterEncoding=utf-8&amp;serverTimezone=UTC&amp;useSSL=false&amp;allowPublicKeyRetrieval=true"
                         userId="root"
@@ -13,16 +16,38 @@
             <property name="nullCatalogMeansCurrent" value="true"/>
         </jdbcConnection>
 
-        <javaModelGenerator targetPackage="com.example.shop.generate" targetProject="src/main/java"/>
-        <sqlMapGenerator targetPackage="db.mybatis" targetProject="src/main/resources"/>
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.shop.generate" targetProject="src/main/java"/>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true"/>
+        </javaTypeResolver>
 
-        <table schema="shop" tableName="user" domainObjectName="User">
+        <javaModelGenerator targetPackage="com.example.shop.generate" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="db.mybatis" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.shop.generate" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table schema="shop" tableName="USER" domainObjectName="User">
             <property name="useActualColumnNames" value="false"/>
             <generatedKey column="ID" sqlStatement="MySql" identity="true"/>
-            <columnOverride column="AVATAR_URL" property="avatarUrl"/>
-            <columnOverride column="CREATED_AT" property="createdAt"/>
-            <columnOverride column="UPDATE_AT" property="updateAt"/>
+        </table>
+        <table schema="shop" tableName="SHOP" domainObjectName="Shop">
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="ID" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table schema="shop" tableName="GOODS" domainObjectName="Goods">
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="ID" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table schema="shop" tableName="SHOPPING_CART" domainObjectName="ShoppingCart">
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="ID" sqlStatement="MySql" identity="true"/>
         </table>
     </context>
 </generatorConfiguration>
