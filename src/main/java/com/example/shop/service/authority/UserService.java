@@ -5,9 +5,9 @@ import com.example.shop.generate.UserExample;
 import com.example.shop.generate.UserMapper;
 import com.example.shop.utils.LoggerUtil;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.util.Date;
 import java.util.Optional;
 
@@ -17,7 +17,7 @@ public class UserService {
     private final UserMapper userMapper;
     Logger logger = LoggerUtil.getInstance(UserService.class);
 
-    @Autowired
+    @Inject
     public UserService(UserMapper userMapper) {
         this.userMapper = userMapper;
     }

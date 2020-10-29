@@ -26,7 +26,7 @@ import javax.annotation.Resource;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = ShopApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:application.yml")
-public class AuthApplicationIntegrationTest {
+public class AuthIntegrationTest {
 
     @Resource
     private Environment environment;

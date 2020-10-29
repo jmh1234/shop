@@ -8,9 +8,9 @@ import com.example.shop.utils.Pagination;
 import com.example.shop.utils.Util;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class ShopServiceImpl implements ShopService {
 
     private final ShopMapper shopMapper;
 
-    @Autowired
+    @Inject
     public ShopServiceImpl(ShopMapper shopMapper) {
         this.shopMapper = shopMapper;
     }

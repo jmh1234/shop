@@ -32,16 +32,4 @@ public class Pagination<T> implements Serializable {
             List<T> items, int pageSize, int pageNum, int totalPage, boolean success) {
         return new Pagination<>(items, pageSize, pageNum, totalPage, success);
     }
-
-    @Override
-    public String toString() {
-        return "Pagination{" +
-                "items=" + items +
-                ", pageSize=" + pageSize +
-                ", pageNum=" + pageNum +
-                ", totalPage=" + totalPage +
-                ", status='" + status + '\'' +
-                ", msg='" + msg + '\'' +
-                '}';
-    }
 }
