@@ -11,6 +11,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -37,6 +38,7 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public Goods updateGoods(Goods goods, int id) {
         goods.setId((long) id);
+        goods.setUpdatedAt(new Date());
         goodsMapper.updateByPrimaryKeySelective(goods);
         return getGoodsInfoById(id);
     }
