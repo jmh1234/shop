@@ -1,8 +1,8 @@
 package com.example.shop.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.shop.generate.Goods;
-import com.example.shop.service.GoodsService;
+import com.example.shop.generate.Shop;
+import com.example.shop.service.ShopService;
 import com.example.shop.utils.UserContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,16 +12,17 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/api/v1")
-public class GoodsController {
-    private final GoodsService goodsService;
+public class ShopController {
+
+    private final ShopService shopService;
 
     @Autowired
-    public GoodsController(GoodsService goodsService) {
-        this.goodsService = goodsService;
+    public ShopController(ShopService shopService) {
+        this.shopService = shopService;
     }
 
-    @PostMapping("goods")
-    public Object createGoods(@RequestBody Goods goods, HttpServletResponse response) {
+    @PatchMapping("/shop/{id}")
+    public Object updateShopInfo(@PathVariable("id") int id, @RequestBody Shop shop, HttpServletResponse response) {
         if (UserContext.getCurrentUser() == null) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             // todo
@@ -29,12 +30,12 @@ public class GoodsController {
             object.put("message", "Unauthorized");
             return object;
         } else {
-            return goodsService.insertGoods(clear(goods));
+            return shopService.updateShopInfoById(id, shop);
         }
     }
 
-    @PatchMapping("/goods/{id}")
-    public Object updateGoods(@RequestBody Goods goods, @PathVariable("id") int id, HttpServletResponse response) {
+    @PostMapping("/shop")
+    public Object createShop(@RequestBody Shop shop, HttpServletResponse response) {
         if (UserContext.getCurrentUser() == null) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             // todo
@@ -42,15 +43,12 @@ public class GoodsController {
             object.put("message", "Unauthorized");
             return object;
         } else {
-            return goodsService.updateGoods(clear(goods), id);
+            return shopService.createShop(shop);
         }
     }
 
-    @GetMapping("goods")
-    public Object getGoodsInfoList(@RequestParam("pageNum") int pageNum,
-                                   @RequestParam("pageSize") int pageSize,
-                                   @RequestParam(value = "shopId", defaultValue = "-1") String shopId,
-                                   HttpServletResponse response) {
+    @DeleteMapping("/shop/{id}")
+    public Object deleteShopInfo(@PathVariable("id") int id, HttpServletResponse response) {
         if (UserContext.getCurrentUser() == null) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             // todo
@@ -58,12 +56,13 @@ public class GoodsController {
             object.put("message", "Unauthorized");
             return object;
         } else {
-            return goodsService.getGoodsInfoList(pageNum, pageSize, shopId);
+            return shopService.deleteInfoById(id);
         }
     }
 
-    @GetMapping("goods/{id}")
-    public Object getGoodsById(@PathVariable("id") int id, HttpServletResponse response) {
+    @GetMapping("shop")
+    public Object getShopInfoList(@RequestParam("pageNum") int pageNum,
+                                  @RequestParam("pageSize") int pageSize, HttpServletResponse response) {
         if (UserContext.getCurrentUser() == null) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             // todo
@@ -71,12 +70,13 @@ public class GoodsController {
             object.put("message", "Unauthorized");
             return object;
         } else {
-            return goodsService.getGoodsInfoById(id);
+//            String tel = UserContext.getCurrentUser().getTel();
+            return shopService.getShopInfoList(pageNum, pageSize);
         }
     }
 
-    @DeleteMapping("goods/{id}")
-    public Object deleteGoodsById(@PathVariable("id") int id, HttpServletResponse response) {
+    @GetMapping("shop/{id}")
+    public Object getShopById(@PathVariable("id") int id, HttpServletResponse response) {
         if (UserContext.getCurrentUser() == null) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             // todo
@@ -84,14 +84,7 @@ public class GoodsController {
             object.put("message", "Unauthorized");
             return object;
         } else {
-            return goodsService.deleteGoodsById(id);
+            return shopService.getShopInfoByID(id);
         }
-    }
-
-    private static Goods clear(Goods goods) {
-        goods.setId(null);
-        goods.setCreatedAt(null);
-        goods.setUpdatedAt(null);
-        return goods;
     }
 }
