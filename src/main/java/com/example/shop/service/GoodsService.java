@@ -7,11 +7,11 @@ public interface GoodsService {
 
     Goods insertGoods(Goods goods);
 
-    Goods getGoodsInfoById(int id);
+    Goods getGoodsInfoById(long id);
 
-    Goods updateGoods(Goods goods, int id);
+    Goods updateGoods(Goods goods, long id);
 
     Pagination<Goods> getGoodsInfoList(int pageNum, int pageSize, String shopId);
 
-    Goods deleteGoodsById(int id);
+    Goods deleteGoodsById(long id);
 }

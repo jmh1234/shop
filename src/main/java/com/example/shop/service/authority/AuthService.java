@@ -1,8 +1,9 @@
 package com.example.shop.service.authority;
 
 import com.example.shop.service.SmsCodeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.inject.Inject;
 
 @Service
 public class AuthService {
@@ -10,7 +11,7 @@ public class AuthService {
     private final SmsCodeService smsCodeService;
     private final VerificationCodeCheckService verificationCodeCheckService;
 
-    @Autowired
+    @Inject
     public AuthService(UserService userService, SmsCodeService smsCodeService, VerificationCodeCheckService verificationCodeCheckService) {
         this.userService = userService;
         this.smsCodeService = smsCodeService;

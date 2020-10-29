@@ -8,9 +8,9 @@ import com.example.shop.utils.Pagination;
 import com.example.shop.utils.Util;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.util.Date;
 import java.util.List;
 
@@ -19,28 +19,28 @@ public class GoodsServiceImpl implements GoodsService {
 
     private final GoodsMapper goodsMapper;
 
-    @Autowired
+    @Inject
     public GoodsServiceImpl(GoodsMapper goodsMapper) {
         this.goodsMapper = goodsMapper;
     }
 
     @Override
     public Goods insertGoods(Goods goods) {
-        int id = goodsMapper.insert(goods);
-        return getGoodsInfoById(id);
+        goodsMapper.insertSelective(goods);
+        return getGoodsInfoById(goods.getId());
     }
 
     @Override
-    public Goods getGoodsInfoById(int id) {
-        return goodsMapper.selectByPrimaryKey((long) id);
+    public Goods getGoodsInfoById(long id) {
+        return goodsMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public Goods updateGoods(Goods goods, int id) {
-        goods.setId((long) id);
+    public Goods updateGoods(Goods goods, long id) {
+        goods.setId(id);
         goods.setUpdatedAt(new Date());
         goodsMapper.updateByPrimaryKeySelective(goods);
-        return getGoodsInfoById(id);
+        return getGoodsInfoById(goods.getId());
     }
 
     @Override
@@ -58,9 +58,9 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public Goods deleteGoodsById(int id) {
+    public Goods deleteGoodsById(long id) {
         Goods goods = getGoodsInfoById(id);
-        goodsMapper.deleteByPrimaryKey((long) id);
+        goodsMapper.deleteByPrimaryKey(id);
         return goods;
     }
 }

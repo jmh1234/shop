@@ -9,10 +9,10 @@ import com.example.shop.utils.UserContext;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
@@ -23,7 +23,7 @@ public class AuthController {
     private final TelVerificationService telVerificationService;
     private final Logger logger = LoggerUtil.getInstance(AuthController.class);
 
-    @Autowired
+    @Inject
     public AuthController(AuthService authService, TelVerificationService telVerificationService) {
         this.authService = authService;
         this.telVerificationService = telVerificationService;
