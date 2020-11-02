@@ -19,20 +19,20 @@ public class ShopController {
     }
 
     @Authentication
-    @PatchMapping("/shop/{id}")
-    public Object updateShopInfo(@PathVariable("id") int id, @RequestBody Shop shop) {
-        return shopService.updateShopInfoById(id, shop);
-    }
-
-    @Authentication
     @PostMapping("/shop")
     public Object createShop(@RequestBody Shop shop) {
         return shopService.createShop(shop);
     }
 
     @Authentication
+    @PatchMapping("/shop/{id}")
+    public Object updateShopInfo(@PathVariable("id") long id, @RequestBody Shop shop) {
+        return shopService.updateShopInfoById(id, shop);
+    }
+
+    @Authentication
     @DeleteMapping("/shop/{id}")
-    public Object deleteShopInfo(@PathVariable("id") int id) {
+    public Object deleteShopInfo(@PathVariable("id") long id) {
         return shopService.deleteInfoById(id);
     }
 
@@ -44,7 +44,7 @@ public class ShopController {
 
     @Authentication
     @GetMapping("shop/{id}")
-    public Object getShopById(@PathVariable("id") int id) {
+    public Object getShopById(@PathVariable("id") long id) {
         return shopService.getShopInfoByID(id);
     }
 }

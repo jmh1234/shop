@@ -5,13 +5,13 @@ import com.example.shop.utils.Pagination;
 
 public interface ShopService {
 
-    Shop getShopInfoByID(int id);
+    Shop getShopInfoByID(long id);
 
-    Shop updateShopInfoById(int id, Shop shop);
+    Shop updateShopInfoById(long id, Shop shop);
 
     Shop createShop(Shop shop);
 
-    Shop deleteInfoById(int id);
+    Shop deleteInfoById(long id);
 
     Pagination<Shop> getShopInfoList(int pageNum, int pageSize);
 }

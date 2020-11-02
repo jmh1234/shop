@@ -33,10 +33,10 @@ public class AuthController {
     public LoginResponse code(@RequestBody JSONObject registerObj, HttpServletResponse response) {
         if (telVerificationService.verifyTelParameter(registerObj)) {
             String code = authService.sendVerificationCode(registerObj.getString("tel"));
-            return LoginResponse.getCodeSuccess(registerObj.getString("tel"), code);
+            return LoginResponse.getCodeSuccess(code);
         } else {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
-            return LoginResponse.getCodeFailure();
+            return LoginResponse.failure();
         }
     }
 
@@ -48,8 +48,7 @@ public class AuthController {
         try {
             token.setRememberMe(true);
             SecurityUtils.getSubject().login(token);
-            Object principal = SecurityUtils.getSubject().getPrincipal();
-            return LoginResponse.success(principal.toString());
+            return LoginResponse.success();
         } catch (Exception e) {
             logger.error(LoggerUtil.formatException(e));
             response.setStatus(HttpStatus.BAD_REQUEST.value());
