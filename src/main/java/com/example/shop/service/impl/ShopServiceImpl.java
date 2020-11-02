@@ -26,12 +26,13 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public Shop getShopInfoByID(int id) {
-        return shopMapper.selectByPrimaryKey((long) id);
+    public Shop getShopInfoByID(long id) {
+        return shopMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public Shop updateShopInfoById(int id, Shop shop) {
+    public Shop updateShopInfoById(long id, Shop shop) {
+        shop.setId(id);
         shop.setUpdatedAt(new Date());
         shopMapper.updateByPrimaryKeySelective(shop);
         return getShopInfoByID(id);
@@ -39,14 +40,16 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public Shop createShop(Shop shop) {
-        int id = shopMapper.insert(shop);
-        return shopMapper.selectByPrimaryKey((long) id);
+        shop.setUpdatedAt(new Date());
+        shop.setCreatedAt(new Date());
+        shopMapper.insertSelective(shop);
+        return shopMapper.selectByPrimaryKey(shop.getId());
     }
 
     @Override
-    public Shop deleteInfoById(int id) {
-        Shop shop = shopMapper.selectByPrimaryKey((long) id);
-        shopMapper.deleteByPrimaryKey((long) id);
+    public Shop deleteInfoById(long id) {
+        Shop shop = shopMapper.selectByPrimaryKey(id);
+        shopMapper.deleteByPrimaryKey(id);
         return shop;
     }
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,6 +39,8 @@ public class UserService {
     public Optional<User> getUserByTel(String tel) {
         UserExample example = new UserExample();
         example.createCriteria().andTelEqualTo(tel);
-        return Optional.ofNullable(userMapper.selectByExample(example).get(0));
+        List<User> users = userMapper.selectByExample(example);
+        User user = users.isEmpty() ? null : users.get(0);
+        return Optional.ofNullable(user);
     }
 }
