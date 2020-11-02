@@ -10,7 +10,7 @@ jobs:
     - stage: Verify whitelist
       install: skip
       script:
-        - docker run -d -p 3306:3306 --name=mysql -e MYSQL_ROOT_PASSWORD=fnst-3d3k -e MYSQL_DATABASE=shop mysql
+        - docker run -d -p 3307:3306 --name=mysql -e MYSQL_ROOT_PASSWORD=fnst-3d3k -e MYSQL_DATABASE=shop mysql
         - docker run -d -p 6379:6379 --name=redis redis
         - sleep 20
         - mvn flyway:migrate
