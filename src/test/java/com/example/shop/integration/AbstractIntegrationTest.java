@@ -50,7 +50,7 @@ public class AbstractIntegrationTest {
 
     public String loginAndGetCookie() {
         JSONObject object = new JSONObject();
-        object.put("tel", "11111111111");
+        object.put("tel", "13800000000");
 
         // 1. 最开始默认的情况下访问"/api/status" 时 处于未登录状态
         HttpResponse statusResponseWithoutCookie = getResponseByGet(getUrl("/api/status"), null, httpClient);

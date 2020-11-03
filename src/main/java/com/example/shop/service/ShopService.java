@@ -1,7 +1,7 @@
 package com.example.shop.service;
 
 import com.example.shop.generate.Shop;
-import com.example.shop.utils.Pagination;
+import com.example.shop.entity.Pagination;
 
 public interface ShopService {
 
