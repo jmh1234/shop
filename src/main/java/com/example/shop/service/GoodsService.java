@@ -3,6 +3,9 @@ package com.example.shop.service;
 import com.example.shop.generate.Goods;
 import com.example.shop.entity.Pagination;
 
+import java.util.List;
+import java.util.Map;
+
 public interface GoodsService {
 
     Goods insertGoods(Goods goods);
@@ -14,4 +17,6 @@ public interface GoodsService {
     Pagination<Goods> getGoodsInfoList(int pageNum, int pageSize, String shopId);
 
     Goods deleteGoodsById(long id);
+
+    Map<Long, Goods> getIdToGoodsMap(List<Long> goodsId);
 }

@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+import static java.util.stream.Collectors.toMap;
 
 @Service
 public class GoodsServiceImpl implements GoodsService {
@@ -43,9 +46,6 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public Goods getGoodsInfoById(long id) {
-        GoodsExample goodsExample = new GoodsExample();
-        goodsExample.createCriteria().andIdEqualTo(id);
-        goodsExample.createCriteria().andStatusEqualTo("ok");
         Goods good = goodsMapper.selectByPrimaryKey(id);
         if (good == null || "deleted".equals(good.getStatus())) {
             throw HttpException.notFound("未找到!");
@@ -99,5 +99,13 @@ public class GoodsServiceImpl implements GoodsService {
         int total = (int) ((Page<Goods>) goods).getTotal();
         int totalPage = total % pageSize == 0 ? total / pageSize : total / pageSize + 1;
         return Pagination.pageOf(goods, pageSize, pageNum, totalPage, true);
+    }
+
+    @Override
+    public Map<Long, Goods> getIdToGoodsMap(List<Long> goodsId) {
+        GoodsExample example = new GoodsExample();
+        example.createCriteria().andIdIn(goodsId);
+        List<Goods> goods = goodsMapper.selectByExample(example);
+        return goods.stream().collect(toMap(Goods::getId, x -> x));
     }
 }
