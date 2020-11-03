@@ -26,14 +26,14 @@ public class GoodsController {
 
     @Authentication
     @PatchMapping("/goods/{id}")
-    public Object updateGoods(@RequestBody Goods goods, @PathVariable("id") long id) {
+    public Object updateGoods(@PathVariable("id") long id, @RequestBody Goods goods) {
         return goodsService.updateGoods(clear(goods), id);
     }
 
     @Authentication
     @GetMapping("goods")
     public Object getGoodsInfoList(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize,
-                                   @RequestParam(value = "shopId", defaultValue = "-1") String shopId) {
+                                   @RequestParam(value = "shopId", required = false) String shopId) {
         return goodsService.getGoodsInfoList(pageNum, pageSize, shopId);
     }
 

@@ -323,7 +323,7 @@
                         <exclude>**/generate/**/*</exclude>
                     </excludes>
                 </configuration>
-            </plugin>
+            </plugin><!--jacoco-->
         </plugins>
     </build>
 </project>

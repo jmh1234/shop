@@ -25,26 +25,26 @@ public class ShopIntegrationTest extends AbstractIntegrationTest {
         String sessionId = loginAndGetCookie();
         HttpResponse createResponse = getResponseByPost(getUrl("/api/v1/shop"), content, sessionId, httpClient);
         Assertions.assertEquals(200, createResponse.getStatusLine().getStatusCode());
-        JSONObject createObject = getResponseObject(createResponse);
+        JSONObject createObject = getResponseObject(createResponse).getJSONObject("data");
         Assertions.assertEquals("我的店铺", createObject.getString("name"));
         Assertions.assertEquals("我的苹果专卖店", createObject.getString("description"));
 
         HttpResponse deleteResponse = getResponseByDelete(getUrl("/api/v1/shop/3"), sessionId, httpClient);
         Assertions.assertEquals(200, deleteResponse.getStatusLine().getStatusCode());
-        JSONObject deleteObject = getResponseObject(deleteResponse);
+        JSONObject deleteObject = getResponseObject(deleteResponse).getJSONObject("data");
         Assertions.assertEquals("3", deleteObject.getString("id"));
         Assertions.assertEquals("我的店铺", deleteObject.getString("name"));
         Assertions.assertEquals("我的苹果专卖店", deleteObject.getString("description"));
 
         HttpResponse updateResponse = getResponseByPatch(getUrl("/api/v1/shop/1"), content, sessionId, httpClient);
         Assertions.assertEquals(200, updateResponse.getStatusLine().getStatusCode());
-        JSONObject updateObject = getResponseObject(updateResponse);
+        JSONObject updateObject = getResponseObject(updateResponse).getJSONObject("data");
         Assertions.assertEquals("我的店铺", updateObject.getString("name"));
         Assertions.assertEquals("我的苹果专卖店", updateObject.getString("description"));
 
         HttpResponse getShopByIdResponse = getResponseByGet(getUrl("/api/v1/shop/1"), sessionId, httpClient);
         Assertions.assertEquals(200, getShopByIdResponse.getStatusLine().getStatusCode());
-        JSONObject getShopByIdObject = getResponseObject(getShopByIdResponse);
+        JSONObject getShopByIdObject = getResponseObject(getShopByIdResponse).getJSONObject("data");
         Assertions.assertEquals("我的店铺", getShopByIdObject.getString("name"));
         Assertions.assertEquals("我的苹果专卖店", getShopByIdObject.getString("description"));
 
