@@ -72,7 +72,7 @@ public class GoodsIntegrationTest extends AbstractIntegrationTest {
         assertEquals("获取成功", goodsInfoWithShopIdObject.getString("msg"));
         assertEquals("1", goodsInfoWithShopIdObject.getString("pageNum"));
         assertEquals("10", goodsInfoWithShopIdObject.getString("pageSize"));
-        assertEquals(4, goodsInfoWithShopIdObject.getJSONArray("items").size());
+        assertEquals(4, goodsInfoWithShopIdObject.getJSONArray("data").size());
 
         // 5. 获取所有商品
         HttpResponse allGoodsInfoResponse = getResponseByGet(getUrl("/api/v1/goods?pageNum=1&pageSize=10"), sessionId, httpClient);
@@ -81,7 +81,7 @@ public class GoodsIntegrationTest extends AbstractIntegrationTest {
         assertEquals("获取成功", allGoodsInfoObject.getString("msg"));
         assertEquals("1", allGoodsInfoObject.getString("pageNum"));
         assertEquals("10", allGoodsInfoObject.getString("pageSize"));
-        assertEquals(6, allGoodsInfoObject.getJSONArray("items").size());
+        assertEquals(6, allGoodsInfoObject.getJSONArray("data").size());
 
         // 6. 通过ID删除数据
         HttpResponse deleteResponse = getResponseByDelete(getUrl("/api/v1/goods/3"), sessionId, httpClient);

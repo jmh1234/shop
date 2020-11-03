@@ -10,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = ShopApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {"spring.config.location=classpath:test-application.yml"})
@@ -54,5 +56,7 @@ public class ShopIntegrationTest extends AbstractIntegrationTest {
         Assertions.assertEquals("获取成功", getAllShopInfoInfoObject.getString("msg"));
         Assertions.assertEquals("1", getAllShopInfoInfoObject.getString("pageNum"));
         Assertions.assertEquals("10", getAllShopInfoInfoObject.getString("pageSize"));
+        assertEquals(2, getAllShopInfoInfoObject.getJSONArray("data").size());
+
     }
 }

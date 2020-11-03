@@ -9,15 +9,15 @@ import java.util.List;
 @Getter
 @Setter
 public class Pagination<T> implements Serializable {
-    private final List<T> items;
+    private final List<T> data;
     private final int pageSize;
     private final int pageNum;
     private final int totalPage;
     private final String status;
     private final String msg;
 
-    private Pagination(List<T> items, int pageSize, int pageNum, int totalPage, boolean success) {
-        this.items = items;
+    private Pagination(List<T> data, int pageSize, int pageNum, int totalPage, boolean success) {
+        this.data = data;
         this.pageSize = pageSize;
         this.pageNum = pageNum;
         this.totalPage = totalPage;
