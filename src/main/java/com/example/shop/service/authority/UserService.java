@@ -3,8 +3,7 @@ package com.example.shop.service.authority;
 import com.example.shop.generate.User;
 import com.example.shop.generate.UserExample;
 import com.example.shop.generate.UserMapper;
-import com.example.shop.utils.LoggerUtil;
-import org.slf4j.Logger;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -16,7 +15,6 @@ import java.util.Optional;
 public class UserService {
 
     private final UserMapper userMapper;
-    Logger logger = LoggerUtil.getInstance(UserService.class);
 
     @Inject
     public UserService(UserMapper userMapper) {
@@ -30,9 +28,8 @@ public class UserService {
         user.setUpdatedAt(new Date());
         try {
             userMapper.insert(user);
-        } catch (Exception e) {
-            logger.error(LoggerUtil.formatException(e));
-            getUserByTel(tel);
+        } catch (DuplicateKeyException e) {
+            getUserByTel(tel).ifPresent(System.out::println);
         }
     }
 

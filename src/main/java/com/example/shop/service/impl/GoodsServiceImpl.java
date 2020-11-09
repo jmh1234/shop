@@ -106,6 +106,6 @@ public class GoodsServiceImpl implements GoodsService {
         GoodsExample example = new GoodsExample();
         example.createCriteria().andIdIn(goodsId);
         List<Goods> goods = goodsMapper.selectByExample(example);
-        return goods.stream().collect(toMap(Goods::getId, x -> x));
+        return goods.stream().collect(toMap(Goods::getId, value -> value));
     }
 }
