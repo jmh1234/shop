@@ -35,6 +35,15 @@ public class ShoppingCartController {
     @Authentication
     @DeleteMapping("/shoppingCart/{id}")
     public Object deleteGoodsInShoppingCart(@PathVariable("id") Long goodsId) {
+        System.out.println(goodsId);
         return shoppingCartService.deleteGoodsInShoppingCart(goodsId, UserContext.getCurrentUser().getId());
     }
+
+    @Authentication
+    @DeleteMapping("/deleteAllShoppingCart")
+    public void deleteAllShoppingCartByUserId() {
+        shoppingCartService.deleteAllShoppingCartByUserId(UserContext.getCurrentUser().getId());
+    }
+
+
 }

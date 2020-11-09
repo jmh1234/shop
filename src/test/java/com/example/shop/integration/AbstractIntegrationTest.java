@@ -1,7 +1,7 @@
 package com.example.shop.integration;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpDelete;
@@ -37,6 +37,8 @@ public class AbstractIntegrationTest {
     private String databasePassword;
 
     public CloseableHttpClient httpClient;
+
+    public static ObjectMapper objectMapper = new ObjectMapper();
 
     @BeforeEach
     public void setup() {
@@ -86,13 +88,13 @@ public class AbstractIntegrationTest {
     }
 
     @SneakyThrows
-    public static HttpResponse getResponseByPatch(String url, JSONObject object, String sessionId, CloseableHttpClient httpClient) {
+    public  HttpResponse getResponseByPatch(String url, Object requestBody, String sessionId, CloseableHttpClient httpClient) {
         HttpPatch httpPatch = new HttpPatch(url);
         httpPatch.addHeader(HTTP.CONTENT_TYPE, "application/json");
         if (sessionId != null) {
             httpPatch.setHeader("Cookie", sessionId);
         }
-        httpPatch.setEntity(getStringEntity(object));
+        httpPatch.setEntity(getStringEntity(requestBody));
         return httpClient.execute(httpPatch);
     }
 
@@ -107,13 +109,13 @@ public class AbstractIntegrationTest {
     }
 
     @SneakyThrows
-    public static HttpResponse getResponseByPost(String url, JSONObject object, String sessionId, CloseableHttpClient httpClient) {
+    public static HttpResponse getResponseByPost(String url, Object requestBody, String sessionId, CloseableHttpClient httpClient) {
         HttpPost httpPost = new HttpPost(url);
         httpPost.addHeader(HTTP.CONTENT_TYPE, "application/json");
         if (sessionId != null) {
             httpPost.setHeader("Cookie", sessionId);
         }
-        httpPost.setEntity(getStringEntity(object));
+        httpPost.setEntity(getStringEntity(requestBody));
         return httpClient.execute(httpPost);
     }
 
@@ -127,8 +129,8 @@ public class AbstractIntegrationTest {
     }
 
     @SneakyThrows
-    public static StringEntity getStringEntity(JSONObject object) {
-        StringEntity entity = new StringEntity(JSON.toJSONString(object), StandardCharsets.UTF_8);
+    public static StringEntity getStringEntity(Object requestBody) {
+        StringEntity entity = new StringEntity(objectMapper.writeValueAsString(requestBody), StandardCharsets.UTF_8);
         entity.setContentType("text/json");
         entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
         return entity;

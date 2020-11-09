@@ -11,4 +11,12 @@ import java.util.List;
 public class ShoppingCartData {
     private Shop shop;
     private List<GoodsWithNumber> goods;
+
+    @Override
+    public String toString() {
+        return "ShoppingCartData{" +
+                "shop=" + shop +
+                ", goods=" + goods +
+                '}';
+    }
 }

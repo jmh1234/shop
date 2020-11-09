@@ -11,4 +11,6 @@ public interface ShoppingCartService {
     Pagination<ShoppingCartData> getShoppingCartInfo(int pageNum, int pageSize);
 
     ShoppingCartData deleteGoodsInShoppingCart(Long goodsId, Long userId);
+
+    void deleteAllShoppingCartByUserId(Long userId);
 }

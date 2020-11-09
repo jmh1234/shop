@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.shop.dao.ShoppingCartQueryMapper">
-
     <select id="countShopsInUserShoppingCart" parameterType="long" resultType="int">
         SELECT COUNT(DISTINCT SHOPPING_CART.SHOP_ID) AS number
         FROM SHOPPING_CART
@@ -35,7 +34,6 @@
                  JOIN SHOPPING_CART on t1.SHOP_ID = SHOPPING_CART.SHOP_ID
                  JOIN GOODS on SHOPPING_CART.GOODS_ID = GOODS.ID
                  JOIN SHOP on t1.SHOP_ID = SHOP.ID
-
         WHERE SHOPPING_CART.STATUS = 'ok'
     </select>
 
