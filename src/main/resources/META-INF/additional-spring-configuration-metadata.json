@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "embedded.zookeeper.port",
+      "type": "java.lang.String",
+      "description": "Description for embedded.zookeeper.port."
+  }
+] }
