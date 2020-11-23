@@ -19,10 +19,10 @@ public class UserLoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-//        Object principal = SecurityUtils.getSubject().getPrincipal();
-//        if (principal != null) {
-//            userService.getUserByTel(principal.toString()).ifPresent(UserContext::setCurrentUser);
-//        }
+        Object principal = SecurityUtils.getSubject().getPrincipal();
+        if (principal != null) {
+            userService.getUserByTel(principal.toString()).ifPresent(UserContext::setCurrentUser);
+        }
         return true;
     }
 
