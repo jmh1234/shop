@@ -1,6 +1,7 @@
 package com.example.shop.integration;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.shop.api.OrderService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.apache.http.HttpResponse;
@@ -28,6 +29,9 @@ public class AbstractIntegrationTest {
 
     @Resource
     private Environment environment;
+
+    @Resource
+    private OrderService orderService;
 
     @Value("${spring.datasource.url}")
     private String databaseUrl;
@@ -88,7 +92,7 @@ public class AbstractIntegrationTest {
     }
 
     @SneakyThrows
-    public  HttpResponse getResponseByPatch(String url, Object requestBody, String sessionId, CloseableHttpClient httpClient) {
+    public HttpResponse getResponseByPatch(String url, Object requestBody, String sessionId, CloseableHttpClient httpClient) {
         HttpPatch httpPatch = new HttpPatch(url);
         httpPatch.addHeader(HTTP.CONTENT_TYPE, "application/json");
         if (sessionId != null) {

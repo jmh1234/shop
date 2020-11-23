@@ -23,6 +23,7 @@ pagehelper:
 shop:
   service:
     version: 1.0.0
+  url: ""
 
 dubbo:
   registry:

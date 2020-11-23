@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: shop
   datasource:
     url: jdbc:mysql://127.0.0.1:3307/shop?characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -22,7 +24,13 @@ pagehelper:
 shop:
   service:
     version: 1.0.0
+    url: dubbo://127.0.0.1:12345
 
 dubbo:
+  scan:
+    base-packages: com.example.shop.mock
+  protocol:
+    name: dubbo
+    port: 12345
   registry:
     address: zookeeper://127.0.0.1:2181

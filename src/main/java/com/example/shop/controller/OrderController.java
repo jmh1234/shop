@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1")
 public class OrderController {
 
-    @DubboReference(version = "${shop.service.version}")
+    @DubboReference(version = "${shop.service.version}",
+            url = "${shop.service.url}")
     private OrderService orderService;
 
     @RequestMapping("/testRpc")
     public String testRpc() {
-       return orderService.placeOrder(1, 2);
+        return orderService.placeOrder(1, 2);
     }
 }
