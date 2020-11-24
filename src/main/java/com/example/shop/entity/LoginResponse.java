@@ -28,7 +28,7 @@ public class LoginResponse {
     }
 
     public static LoginResponse notLogin() {
-        return new LoginResponse(false, new User());
+        return new LoginResponse(false);
     }
 
     public static LoginResponse login(User user) {

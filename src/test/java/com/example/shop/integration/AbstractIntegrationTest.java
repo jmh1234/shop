@@ -59,18 +59,18 @@ public class AbstractIntegrationTest {
         object.put("tel", "13800000000");
 
         // 1. 最开始默认的情况下访问"/api/status" 时 处于未登录状态
-        HttpResponse statusResponseWithoutCookie = getResponseByGet(getUrl("/api/status"), null, httpClient);
+        HttpResponse statusResponseWithoutCookie = getResponseByGet(getUrl("/api/v1/status"), null, httpClient);
         Assertions.assertFalse((Boolean) getResponseObject(statusResponseWithoutCookie).get("login"));
 
         // 2. 发送验证码
-        HttpResponse codeSuccessResponse = getResponseByPost(getUrl("/api/code"), object, null, httpClient);
+        HttpResponse codeSuccessResponse = getResponseByPost(getUrl("/api/v1/code"), object, null, httpClient);
         Assertions.assertEquals(200, codeSuccessResponse.getStatusLine().getStatusCode());
         String code = getResponseObject(codeSuccessResponse).get("code").toString();
         Assertions.assertNotNull(code);
 
         // 3. 带着验证码进行登陆得到cookie
         object.put("code", code);
-        HttpResponse loginResponse = getResponseByPost(getUrl("/api/login"), object, null, httpClient);
+        HttpResponse loginResponse = getResponseByPost(getUrl("/api/v1/login"), object, null, httpClient);
         Assertions.assertEquals(200, loginResponse.getStatusLine().getStatusCode());
         Assertions.assertTrue((Boolean) getResponseObject(loginResponse).get("login"));
 

@@ -21,21 +21,20 @@ public class AuthIntegrationTest extends AbstractIntegrationTest {
     public void loginLogoutTest() {
         String sessionId = loginAndGetCookie();
         // 1. 带着 cookie 访问 "api/status" 时 处于登陆状态
-        HttpResponse statusResponseWithCookie = getResponseByGet(getUrl("/api/status"), sessionId, httpClient);
+        HttpResponse statusResponseWithCookie = getResponseByGet(getUrl("/api/v1/status"), sessionId, httpClient);
         Assertions.assertTrue((Boolean) getResponseObject(statusResponseWithCookie).get("login"));
 
         // 2. 调用 "api/logout"
-        HttpResponse logoutResponse = getResponseByGet(getUrl("/api/logout"), sessionId, httpClient);
+        HttpResponse logoutResponse = getResponseByGet(getUrl("/api/v1/logout"), sessionId, httpClient);
         Assertions.assertEquals(200, logoutResponse.getStatusLine().getStatusCode());
 
         // 3. 再次带着cookie访问 "api/status" 时 处于未登录状态
-        HttpResponse httpGetStatusWithCookieAfterLogout = getResponseByGet(getUrl("/api/status"), sessionId, httpClient);
+        HttpResponse httpGetStatusWithCookieAfterLogout = getResponseByGet(getUrl("/api/v1/status"), sessionId, httpClient);
         Assertions.assertFalse((Boolean) getResponseObject(httpGetStatusWithCookieAfterLogout).get("login"));
 
         // 4. 调用任意接口测试aspect内容
         HttpResponse getInfoWithoutSessionIdResponse = getResponseByGet(getUrl("/api/v1/goods/1"), null, httpClient);
         Assertions.assertEquals(401, getInfoWithoutSessionIdResponse.getStatusLine().getStatusCode());
-        Assertions.assertEquals("Unauthorized", getResponseObject(getInfoWithoutSessionIdResponse).getString("message"));
     }
 
     @Test
@@ -45,7 +44,7 @@ public class AuthIntegrationTest extends AbstractIntegrationTest {
         object.put("tel", "1111111111");
         object.put("code", "000");
         HttpResponse codeFailureResponse = getResponseByPost(getUrl("/api/login"), object, null, httpClient);
-        Assertions.assertEquals(400, codeFailureResponse.getStatusLine().getStatusCode());
+        Assertions.assertEquals(401, codeFailureResponse.getStatusLine().getStatusCode());
     }
 
     @Test
@@ -54,6 +53,6 @@ public class AuthIntegrationTest extends AbstractIntegrationTest {
         JSONObject object = new JSONObject();
         object.put("tel", "1111111111");
         HttpResponse codeFailureResponse = getResponseByPost(getUrl("/api/code"), object, null, httpClient);
-        Assertions.assertEquals(400, codeFailureResponse.getStatusLine().getStatusCode());
+        Assertions.assertEquals(401, codeFailureResponse.getStatusLine().getStatusCode());
     }
 }

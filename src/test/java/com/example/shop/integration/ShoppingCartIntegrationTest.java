@@ -77,12 +77,12 @@ public class ShoppingCartIntegrationTest extends AbstractIntegrationTest {
                 good -> ((JSONObject) good).getInteger("shopId") == 1L));
 
         // 手动注销一次，下面测试会用到该方法
-        HttpResponse logoutResponse = getResponseByGet(getUrl("/api/logout"), sessionId, httpClient);
+        HttpResponse logoutResponse = getResponseByGet(getUrl("/api/v1/logout"), sessionId, httpClient);
         Assertions.assertEquals(200, logoutResponse.getStatusLine().getStatusCode());
     }
 
-    // 重复将同一个商品加入购物车，后面的商品会覆盖前面的
     @Test
+    // 重复将同一个商品加入购物车，后面的商品会覆盖前面的
     public void addingSameGoodsToShoppingCartOverwritesOldGoods() {
         // 第一次添加id为2的商品，2个
         canAddShoppingCartData();

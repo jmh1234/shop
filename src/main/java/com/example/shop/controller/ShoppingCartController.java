@@ -1,6 +1,6 @@
 package com.example.shop.controller;
 
-import com.example.shop.aspect.Authentication;
+import com.example.shop.aspect.ResponseAnnotation;
 import com.example.shop.entity.AddToShoppingCartRequest;
 import com.example.shop.service.ShoppingCartService;
 import com.example.shop.utils.UserContext;
@@ -20,26 +20,26 @@ public class ShoppingCartController {
         this.shoppingCartService = shoppingCartService;
     }
 
-    @Authentication
+    @ResponseAnnotation
     @PostMapping("/shoppingCart")
     public Object addToShoppingCart(@RequestBody AddToShoppingCartRequest request) {
         return shoppingCartService.addToShoppingCart(request, UserContext.getCurrentUser().getId());
     }
 
-    @Authentication
+    @ResponseAnnotation
     @GetMapping("/shoppingCart")
     public Object getShoppingCartInfo(@PathParam("pageNum") int pageNum, @PathParam("pageSize") int pageSize) {
         return shoppingCartService.getShoppingCartInfo(pageNum, pageSize);
     }
 
-    @Authentication
+    @ResponseAnnotation
     @DeleteMapping("/shoppingCart/{id}")
     public Object deleteGoodsInShoppingCart(@PathVariable("id") Long goodsId) {
         System.out.println(goodsId);
         return shoppingCartService.deleteGoodsInShoppingCart(goodsId, UserContext.getCurrentUser().getId());
     }
 
-    @Authentication
+    @ResponseAnnotation
     @DeleteMapping("/deleteAllShoppingCart")
     public void deleteAllShoppingCartByUserId() {
         shoppingCartService.deleteAllShoppingCartByUserId(UserContext.getCurrentUser().getId());

@@ -10,6 +10,7 @@ spring:
     host: 127.0.0.1
     port: 6379
 
+
 # mybatis config
 mybatis:
   mapper-locations: classpath:db/mybatis/*.xml
@@ -23,8 +24,14 @@ pagehelper:
 shop:
   service:
     version: 1.0.0
-  url: ""
+    url: ""
+  redis:
+    host: 127.0.0.1
+    port: 6379
 
 dubbo:
   registry:
     address: zookeeper://127.0.0.1:2181
+
+server:
+  port: 8080
