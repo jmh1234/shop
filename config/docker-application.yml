@@ -2,12 +2,12 @@ spring:
   application:
     name: shop
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/shop?characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://192.168.1.12:3306/shop?characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: fnst-3d3k
   redis:
-    host: 127.0.0.1
+    host: 192.168.1.12
     port: 6379
 
 
@@ -26,7 +26,7 @@ shop:
     version: 1.0.0
     url: ""
   redis:
-    host: 127.0.0.1
+    host: 192.168.1.12
     port: 6379
 
 dubbo:
@@ -34,5 +34,5 @@ dubbo:
     address: zookeeper://146.56.220.117:2181
     
 server:
-  port: 8081
+  port: 8080
 
