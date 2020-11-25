@@ -33,3 +33,5 @@ build/
 .vscode/
 /logs/
 logs\\springboot.log
+.DS_Store
+/shop-main/logs/
