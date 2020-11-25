@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "spring.dubbo.scan.base-packages",
+      "type": "java.lang.String",
+      "description": "Description for spring.dubbo.scan.base-packages."
+    },
+    {
+      "name": "spring.dubbo.application.name",
+      "type": "java.lang.String",
+      "description": "Description for spring.dubbo.application.name."
+    }
+  ] }
